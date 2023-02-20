@@ -37,15 +37,21 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    const String assetName = 'assets/earth-day-ecology-svgrepo-com.svg';
+    const String url = 'https://jovial.com/images/jupiter.svg';
+
     final carouselSlider = CarouselSlider(
       options: CarouselOptions(height: 400.0),
       items: [1, 2, 3, 4, 5].map((i) {
         return Builder(
           builder: (BuildContext context) {
-            return SvgPicture.network(
-                'https://jovial.com/images/jupiter.svg',
-                placeholderBuilder: (BuildContext context)
-                => const CircularProgressIndicator());
+            return i % 2 > 0
+                ? SvgPicture.network(url,
+                    placeholderBuilder: (BuildContext context) =>
+                        const CircularProgressIndicator())
+                : SvgPicture.asset(assetName,
+                    placeholderBuilder: (BuildContext context) =>
+                        const CircularProgressIndicator());
           },
         );
       }).toList(),
